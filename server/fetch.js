@@ -1,6 +1,4 @@
-import {DAVClient} from 'tsdav';
-import {convertEvent} from './icalConverter.js';
-
+import {DAVClient} from "tsdav";
 
 export async function fetchEvents(username, token) {
     const today = new Date();
