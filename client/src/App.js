@@ -2,10 +2,12 @@ import React, {useEffect, useState} from "react";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 
+const url = process.env.CALVIEWSERVER ? process.env.CALVIEWSERVER : "localhost:5000";
+
 function App() {
   const [calendarData, setCalendarData] = useState([{}]);
   useEffect(() => {
-    fetch("/events").then(
+    fetch(url+"/events").then(
         response => response.json()
     ).then(
         data => {

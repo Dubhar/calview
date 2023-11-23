@@ -14,3 +14,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+  calviewclient:
+    image: dubhar/calviewclient:latest
+    ports:
+      - "8080:3000"
+    environment:
+      CALENDAR_URL: "calviewserver:5000"
