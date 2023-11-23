@@ -1,12 +1,12 @@
 import {DAVClient} from "tsdav";
 
-export async function fetchEvents(username, token) {
+export async function fetchEvents(url, username, token) {
     const today = new Date();
     const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString();
     const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString();
 
     const client = new DAVClient({
-        serverUrl: 'https://wolke.jefrickel.de/remote.php/dav/', credentials: {
+        serverUrl: url, credentials: {
             username: username, password: token,
         }, authMethod: 'Basic', defaultAccountType: 'caldav',
     });

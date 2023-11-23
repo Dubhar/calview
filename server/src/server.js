@@ -1,10 +1,11 @@
 import {fetchEvents} from "./fetch.js";
 import {convertEvents} from "./icalConverter.js";
-import express from 'express';
+import express, {response} from 'express';
 
-const user = 'tj';
-const token = 'IMUQT-VLXJX-QTDEZ-CDBMW';
-const updateIntervalInMinutes = 15;
+const url = process.env.CALENDAR_URL ? process.env.CALENDAR_URL : 'https://localhost/remote.php/dav/';
+const user = process.env.CALENDAR_USER ? process.env.CALENDAR_USER : 'root';
+const token = process.env.CALENDAR_TOKEN ? process.env.CALENDAR_TOKEN : 'IMUQT-VLXJX-QTDEZ-CDBMW';
+const updateIntervalInMinutes = process.env.UPDATE_INTERVAL ? process.env.UPDATE_INTERVAL : 15;
 const port = 5000;
 
 const app = express();
@@ -17,7 +18,7 @@ app.get('/events', async (request, response) => {
     let minutesSinceLastUpdate = Math.abs(new Date() - lastUpdated)/1000/60;
     if (minutesSinceLastUpdate > updateIntervalInMinutes) {
         try {
-            eventsByCalendar = await fetchEvents(user, token);
+            eventsByCalendar = await fetchEvents(url, user, token);
             lastUpdated = new Date();
         } catch (error) {
             console.error(error);
@@ -36,5 +37,9 @@ app.get('/events', async (request, response) => {
     // send response
     response.json(allEvents);
 });
+
+app.get('/health', (request, response) => {
+    response.json({health: "ok", uptime: process.uptime(), responsetime: process.hrtime});
+})
 
 app.listen(port, () => console.log('Server started on port '+port));
