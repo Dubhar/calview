@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from "react";
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
 
 function App() {
+  const [calendarData, setCalendarData] = useState([{}]);
+  useEffect(() => {
+    fetch("/events").then(
+        response => response.json()
+    ).then(
+        data => {
+          setCalendarData(data)
+        }
+    )
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <div>
+        <FullCalendar
+            plugins={[dayGridPlugin]}
+            initialView='dayGridMonth'
+            headerToolbar={{
+                start: 'title',
+                center: '',
+                end: ''
+            }}
+            events={calendarData}
+        />
+      </div>
+  )
 }
 
-export default App;
+export default App
