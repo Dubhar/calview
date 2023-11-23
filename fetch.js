@@ -1,6 +1,5 @@
 import {DAVClient} from 'tsdav';
-
-import("ical.js");
+import {convertEvent} from './icalConverter.js';
 
 const client = new DAVClient({
     serverUrl: 'https://wolke.jefrickel.de/remote.php/dav/',
@@ -31,18 +30,7 @@ for (let i = 0; i < calendars.length; ++i) {
     });
     for (let j = 0; j < calendarObjects.length; ++j) {
         let element = calendarObjects[j].data;
-
-        let jCalElement = ICAL.parse(element);
-        let comp = new ICAL.Component(jCalElement);
-        let vevent = comp.getFirstSubcomponent("vevent");
-        let event = new ICAL.Event(vevent);
-
-        let convertedEvent = {
-            title: event.summary,
-            start: event.startDate.toJSDate(),
-            end: event.endDate.toJSDate(),
-            color: calendarColor
-        };
+        let convertedEvent = convertEvent(element, calendarColor);
         events.push(convertedEvent);
     }
 }
