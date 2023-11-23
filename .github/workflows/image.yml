@@ -22,7 +22,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
-          file: server/Dockerfile
+          context: ./server
+          file: ./server/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/calviewserver:latest
@@ -31,7 +32,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
-          file: client/Dockerfile
+          context: ./client
+          file: ./client/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/calviewclient:latest
