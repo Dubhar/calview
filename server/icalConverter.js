@@ -17,6 +17,15 @@ function jcalToFullcalendar(jcalEvent, calendarColor) {
 }
 
 export function convertEvent(icalEvent, calendarColor) {
-    let event = icalToJcal(icalEvent);
-    return jcalToFullcalendar(event);
+    let event = icalToJcal(icalEvent.data);
+    return jcalToFullcalendar(event, calendarColor);
+}
+
+export function convertEvents(icalEvents, calendarColor) {
+    let convertedEvents = [];
+    for (let eventIndex = 0; eventIndex < icalEvents.length; ++eventIndex) {
+        let convertedEvent = convertEvent(icalEvents[eventIndex], calendarColor);
+        convertedEvents.push(convertedEvent);
+    }
+    return convertedEvents;
 }

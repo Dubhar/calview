@@ -2,7 +2,7 @@
   "name": "calenders",
   "version": "1.0.0",
   "description": "",
-  "main": "fetch.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "tsdav": "^2.0.6",
-    "ical.js": "^1.4.0"
+    "ical.js": "^1.4.0",
+    "tsdav": "^2.0.6"
   }
 }
