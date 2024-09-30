@@ -14,7 +14,7 @@ Use docker-compose, see `docker-compose.yml` for an example.
 General overview:
 ```mermaid
   graph TD;
-      Browser-->calviewclient:3000;
-      calviewclient-->calviewserver:5000;
+      Browser-- port=3000 -->calviewclient;
+      calviewclient-- port=5000 -->calviewserver;
       calviewserver-->CalendarServer(Google, Nextcloud, ...);
 ```
