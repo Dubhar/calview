@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   calviewserver:
     image: dubhar/calviewserver:latest

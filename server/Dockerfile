@@ -1,14 +1,21 @@
 FROM node:22-alpine
 
-USER node
 WORKDIR /calendar
 
+# setup init system to handle signals
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini", "--"]
+
 # install dependencies
-COPY --chown=node:node package*.json ./
+COPY package*.json ./
 RUN npm install
 
 # install application
-COPY --chown=node:node src ./
+COPY src ./
+
+# use non-root user
+RUN chown -R node .
+USER node
 
 EXPOSE 5000
 CMD ["node", "server.js"]
